@@ -7,7 +7,7 @@ let db;
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 
 
@@ -56,3 +56,12 @@ app.put('/quotes', (req, res) => {
     res.send(result)
   })
 })
+
+app.delete('/quotes', (req, res) => {
+  db.collection('quotes').findOneAndDelete({name: req.body.name},
+  (err, result) => {
+    if (err) return res.send(500, err)
+    res.send({message: 'A darth vadar quote got deleted'})
+  })
+})
+

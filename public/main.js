@@ -1,4 +1,5 @@
-const update = document.getElementById('update')
+const update = document.getElementById('update');
+const del = document.getElementById('delete');
 
 update.addEventListener('click', () => {
   fetch('quotes', {
@@ -16,3 +17,22 @@ update.addEventListener('click', () => {
     console.log(data)
   })
 });
+
+del.addEventListener('click', function () {
+  fetch('quotes', {
+    method: 'delete',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      'name': 'Darth Vader'
+    })
+  })
+  .then(res => {
+    if (res.ok) return res.json()
+  })
+  .then(data => {
+    console.log(data)
+    window.location.reload(true)
+  })
+})
